@@ -1,0 +1,13 @@
+<%- if @params['enable_tls'] -%>
+$DefaultNetstreamDriverCAFile /etc/syslog.papertrail.crt
+$ActionSendStreamDriver gtls
+$ActionSendStreamDriverMode 1
+$ActionSendStreamDriverAuthMode x509/name
+<% end %>
+$ActionResumeRetryCount <%= @params['resume_retry_count'] %>
+$ActionQueueType LinkedList # use asynchronous processing
+$ActionQueueFileName /var/log/rsyslog_queue_main # set file name, also enables disk mode
+$ActionQueueSaveOnShutdown on
+$ActionQueueMaxDiskSpace <%= @params['queue_disk_space'] %>
+
+<%= @params['syslog_selector'] %>     @<%= @params['host'] %>:<%= @params['port'] %>

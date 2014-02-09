@@ -1,0 +1,7 @@
+$ModLoad imfile
+
+$InputFileName <%= @inputfilename %>
+$InputFileTag <%= @inputfiletag %>:
+$InputFileStateFile <%= @ruleset %>-<%= @inputfiletag %>
+$InputFilePersistStateInterval <%= @inputfilepersiststateinterval %> # update state file every 100 lines
+$InputRunFileMonitor
