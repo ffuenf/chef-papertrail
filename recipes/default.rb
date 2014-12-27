@@ -30,12 +30,12 @@ template '/etc/rsyslog.d/90-papertrail.conf' do
   source 'papertrail.rsyslog.conf.erb'
   variables(
     hostname: node['papertrail']['hostname'],
-    params: node['papertrail']
+    papertrail: node['papertrail']
   )
   notifies :restart, 'service[rsyslog]'
 end
 
-remote_file "#{node['papertrail']['conf_dir']}/syslog.papertrail.crt" do
+remote_file "#{node['papertrail']['conf_dir']}/papertrail-bundle.pem" do
   source node['papertrail']['certificate_src']
   mode 0644
   checksum node['papertrail']['certificate_checksum']

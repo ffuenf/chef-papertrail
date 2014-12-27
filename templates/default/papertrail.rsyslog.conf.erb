@@ -1,13 +1,27 @@
-<%- if @params['enable_tls'] -%>
-$DefaultNetstreamDriverCAFile /etc/syslog.papertrail.crt
-$ActionSendStreamDriver gtls
-$ActionSendStreamDriverMode 1
-$ActionSendStreamDriverAuthMode x509/name
+<% if @papertrail['enable_tls'] %>
+$DefaultNetstreamDriverCAFile <%= @papertrail['conf']['DefaultNetstreamDriverCAFile'] %>
+$ActionSendStreamDriver <%= @papertrail['conf']['ActionSendStreamDriver'] %>
+$ActionSendStreamDriverMode <%= @papertrail['conf']['ActionSendStreamDriverMode'] %>
+$ActionSendStreamDriverAuthMode <%= @papertrail['conf']['ActionSendStreamDriverAuthMode'] %>
+$ActionSendStreamDriverPermittedPeer <%= @papertrail['conf']['ActionSendStreamDriverPermittedPeer'] %>
 <% end %>
-$ActionResumeRetryCount <%= @params['resume_retry_count'] %>
-$ActionQueueType LinkedList # use asynchronous processing
-$ActionQueueFileName /var/log/rsyslog_queue_main # set file name, also enables disk mode
-$ActionQueueSaveOnShutdown on
-$ActionQueueMaxDiskSpace <%= @params['queue_disk_space'] %>
+$ActionResumeRetryCount <%= @papertrail['conf']['ActionResumeRetryCount'] %>
+$ActionQueueType <%= @papertrail['conf']['ActionQueueType'] %> # use asynchronous processing
+$ActionQueueFileName <%= @papertrail['conf']['ActionQueueFileName'] %> # set file name, also enables disk mode
+$ActionQueueSaveOnShutdown <%= @papertrail['conf']['ActionQueueSaveOnShutdown'] %>
+$ActionQueueMaxDiskSpace <%= @papertrail['conf']['ActionQueueMaxDiskSpace'] %>
 
-<%= @params['syslog_selector'] %>     @<%= @params['host'] %>:<%= @params['port'] %>
+$ActionResumeInterval <%= @papertrail['conf']['ActionResumeInterval'] %>
+$ActionQueueSize <%= @papertrail['conf']['ActionQueueSize'] %>
+$ActionQueueDiscardMark <%= @papertrail['conf']['ActionQueueDiscardMark'] %>
+$ActionQueueHighWaterMark <%= @papertrail['conf']['ActionQueueDiscardMark'] %>
+$ActionQueueCheckpointInterval <%= @papertrail['conf']['ActionQueueCheckpointInterval'] %>
+$ActionQueueMaxDiskSpace <%= @papertrail['conf']['ActionQueueMaxDiskSpace'] %>
+$ActionQueueTimeoutEnqueue <%= @papertrail['conf']['ActionQueueTimeoutEnqueue'] %>
+$ActionQueueDiscardSeverity <%= @papertrail['conf']['ActionQueueDiscardSeverity'] %>
+
+<% if @papertrail['enable_tls'] %>
+<%= @papertrail['syslog_selector'] %> @@<%= @papertrail['host'] %>:<%= @papertrail['port'] %>
+<% else %>
+<%= @papertrail['syslog_selector'] %> @<%= @papertrail['host'] %>:<%= @papertrail['port'] %>
+<% end %>

@@ -1,5 +1,8 @@
 $ModLoad imfile
 
+$LocalHostName <%= node['papertrail']['hostname'] %>
+$PreserveFQDN on
+
 $InputFileName <%= @inputfilename %>
 $InputFileTag <%= @inputfiletag %>:
 $InputFileStateFile <%= @ruleset %>-<%= @inputfiletag %>
