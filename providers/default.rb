@@ -19,28 +19,26 @@
 
 # Support whyrun
 def whyrun_supported?
-	true
+  true
 end
 
 action :add do
-	description = "add logs from #{@new_resource.name} to remote papertrail logging via rsyslog"
-	converge_by(description) do
-    
+  description = "add logs from #{@new_resource.name} to remote papertrail logging via rsyslog"
+  converge_by(description) do
     template "/etc/rsyslog.d/10-#{@new_resource.name}.conf" do
       action :create
       owner 'root'
       group 'root'
-      mode '0644'
-      cookbook "papertrail"
+      mode 0644
+      cookbook 'papertrail'
       source 'rsyslog.conf.erb'
-			variables({
-        :ruleset => new_resource.ruleset,
-        :inputfilename => new_resource.inputfilename,
-        :inputfiletag => new_resource.name,
-        :inputfilepersiststateinterval => new_resource.inputfilepersiststateinterval
-			})
+      variables(
+        ruleset: new_resource.ruleset,
+        inputfilename: new_resource.inputfilename,
+        inputfiletag: new_resource.name,
+        inputfilepersiststateinterval: new_resource.inputfilepersiststateinterval
+      )
       notifies :restart, 'service[rsyslog]'
     end
-    
-	end
+  end
 end

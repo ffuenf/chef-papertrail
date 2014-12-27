@@ -1,9 +1,9 @@
 # # # # # # # #
 # papertrail  #
 # # # # # # # #
-default['papertrail']['conf_dir'] = "/etc/papertrail"
+default['papertrail']['conf_dir'] = '/etc/papertrail'
 default['papertrail']['hostname'] = node['hostname']
-default['papertrail']['host'] = "logs.papertrailapp.com"
+default['papertrail']['host'] = 'logs.papertrailapp.com'
 default['papertrail']['port'] = 514
 default['papertrail']['resume_retry_count'] = -1
 default['papertrail']['syslog_selector'] = '*.*'

@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  driver_config:
+    require_chef_omnibus: latest
+
+provisioner:
+  name: chef_zero
+  solo_rb:
+    ssl_verify_mode: verify_peer
+
+platforms:
+- name: debian-7.7.0-amd64
+  driver_config:
+    box: debian-7.7.0-amd64
+    box_url: https://atlas.hashicorp.com/ffuenf/boxes/debian-7.7.0-amd64/versions/1.0.2/providers/virtualbox.box
+
+- name: ubuntu-14.04.1-server-amd64
+  driver_config:
+    box: ubuntu-14.04.1-server-amd64
+    box_url: https://atlas.hashicorp.com/ffuenf/boxes/ubuntu-14.04.1-server-amd64/versions/1.0.2/providers/virtualbox.box
+
+suites:
+- name: default
+  run_list:
+    - recipe[papertrail::default]
+  attributes: {}

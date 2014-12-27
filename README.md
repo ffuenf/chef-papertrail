@@ -1,59 +1,73 @@
-Description
-===========
+chef-papertrail
+===============
+[![GitHub tag](http://img.shields.io/github/tag/ffuenf/chef-papertrail.svg)][tag]
+[![Build Status](http://img.shields.io/travis/ffuenf/chef-papertrail.svg)][travis]
+[![Gittip](http://img.shields.io/gittip/arosenhagen.svg)][gittip]
 
-Setup of remote logging to [papertrail](http://papertrailapp.com) over rsyslog.
+[tag]: https://github.com/ffuenf/chef-papertrail/tags
+[travis]: https://travis-ci.org/ffuenf/chef-papertrail
+[gittip]: https://www.gittip.com/arosenhagen
 
-Requirements
-============
+chef-papertrail is a cookbook to setup of remote logging to [papertrail](http://papertrailapp.com) over rsyslog.
 
-[rsyslog](https://github.com/opscode-cookbooks/rsyslog)
+Dependencies
+------------
 
-Cookbooks
----------
+This cookbook depends on the following community cookbooks.
 
-Attributes
-==========
+* [rsyslog](https://github.com/opscode-cookbooks/rsyslog)
 
-* `node['papertrail']['conf_dir']` - default: "/etc/papertrail"
-* `node['papertrail']['hostname']` - default: node['hostname']
-* `node['papertrail']['host']` - default: "logs.papertrailapp.com"
-* `node['papertrail']['port']` - default: 514
-* `node['papertrail']['resume_retry_count']` - default: -1
-* `node['papertrail']['syslog_selector']` - default: '*.*'
-* `node['papertrail']['queue_disk_space']` - default: '100M'
+Platform
+--------
 
-* `node['papertrail']['enable_tls']` - default: true
-* `node['papertrail']['certificate_src']` - default: 'https://papertrailapp.com/tools/syslog.papertrail.crt'
-* `node['papertrail']['certificate_checksum']` - default: '7d6bdd1c00343f6fe3b21db8ccc81e8cd1182c5039438485acac4d98f314fe10'
+The following platforms are supported and tested:
 
-Recipes
-=======
+* Debian 6.x
+* Debian 7.x
+* Ubuntu 14.04.x
 
-The default recipe installs rsyslog and configures it to submit logs to papertrail.
-Use the included LWRP to add aditional logs.
+Other Debian family distributions are assumed to work.
 
-Usage
-=====
+Development
+-----------
+1. Fork the repository from GitHub.
+2. Clone your fork to your local machine:
 
-Simply include the recipe in your application recipe.
-```ruby
-include_recipe "papertrail"
+        $ git clone git@github.com:USER/chef-papertrail.git
+
+3. Create a git branch
+
+        $ git checkout -b my_bug_fix
+
+4. **Write tests**
+5. Make your changes/patches/fixes, committing appropriately
+6. Run the tests: `rake style`, `rake spec`, `rake integration:vagrant`
+7. Push your changes to GitHub
+8. Open a Pull Request
+
+Testing
+-------
+
+The following Rake tasks are provided for automated testing of the cookbook:
+
 ```
-
-ATTENTION: name this cookbook "papertrail" if you want to use the LWRP like this:
-```ruby
-papertrail "YOUR_APPLICATION" do
-  ruleset "YOUR_APPLICATION"
-  inputfilename "/path/to/yourlog.log"
-  inputfiletag "YOUR_APPLICATION"
-end
+$ rake -T
+rake integration:cloud    # Run Test Kitchen with cloud plugins
+rake integration:vagrant  # Run Test Kitchen with Vagrant
+rake spec                 # Run ChefSpec examples
+rake style                # Run all style checks
+rake style:chef           # Lint Chef cookbooks
+rake style:ruby           # Run Ruby style checks
+rake travis               # Run all tests on Travis
 ```
+See TESTING.md for detailed information.
 
 License and Author
-==================
-Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
+------------------
 
-Copyright:: 2014, Achim Rosenhagen
+- Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
+
+- Copyright:: 2014, ffuenf
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

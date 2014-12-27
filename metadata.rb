@@ -1,15 +1,15 @@
-maintainer       "Achim Rosenhagen"
-maintainer_email "a.rosenhagen@ffuenf.de"
-license          "Apache 2.0"
-description      "installs/configures papertrail"
+maintainer 'Achim Rosenhagen'
+maintainer_email 'a.rosenhagen@ffuenf.de'
+license 'Apache 2.0'
+description 'installs/configures papertrail'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-name             "papertrail"
-version          "1.0.0"
+name 'papertrail'
+version '1.0.1'
 
-%w{ debian ubuntu centos suse fedora redhat scientific amazon freebsd windows mac_os_x }.each do |os|
-	supports os
+%w(debian ubuntu).each do |os|
+  supports os
 end
 
-%w{ rsyslog }.each do |ressource|
-	depends ressource
+%w(build-essential rsyslog).each do |ressource|
+  depends ressource
 end

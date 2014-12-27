@@ -1,0 +1,7 @@
+.vagrant/
+.kitchen/
+.kitchen.local.yml
+tmp/
+Gemfile.lock
+Berksfile.lock
+travis_key_chunk.sh
