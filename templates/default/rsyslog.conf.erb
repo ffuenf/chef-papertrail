@@ -3,8 +3,21 @@ $ModLoad imfile
 $LocalHostName <%= node['papertrail']['hostname'] %>
 $PreserveFQDN on
 
+$RuleSet <%= @ruleset %> # use a non-default ruleset (keeps logs out of /var/log/)
 $InputFileName <%= @inputfilename %>
 $InputFileTag <%= @inputfiletag %>:
 $InputFileStateFile <%= @ruleset %>-<%= @inputfiletag %>
 $InputFilePersistStateInterval <%= @inputfilepersiststateinterval %> # update state file every 100 lines
 $InputRunFileMonitor
+
+# destination (see https://papertrailapp.com/systems/setup)
+<% if node['papertrail']['enable_tls'] %>
+<%= node['papertrail']['syslog_selector'] %> @@<%= node['papertrail']['host'] %>:<%= node['papertrail']['port'] %>
+<% else %>
+<%= node['papertrail']['syslog_selector'] %> @<%= node['papertrail']['host'] %>:<%= node['papertrail']['port'] %>
+<% end %>
+# for clarity, explicitly discard everything (this is typically not necessary)
+*.* ~
+
+# all done. change to default ruleset (RSYSLOG_DefaultRuleset) for any following config
+$RuleSet RSYSLOG_DefaultRuleset
