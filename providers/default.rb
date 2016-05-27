@@ -2,7 +2,7 @@
 # Cookbook Name:: papertrail
 # Provider:: papertrail
 #
-# Copyright 2014, Achim Rosenhagen
+# Copyright 2016, Achim Rosenhagen
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,11 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-# Support whyrun
-def whyrun_supported?
-  true
-end
+use_inline_resources
 
 action :add do
   description = "add logs from #{@new_resource.name} to remote papertrail logging via rsyslog"
