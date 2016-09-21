@@ -13,7 +13,7 @@ Vagrant.configure('2') do |config|
     config.cache.scope = :machine
     config.cache.synced_folder_opts = {
       type: :nfs,
-      mount_options: %w(rw, tcp, nolock)
+      mount_options: %w(rw tcp nolock)
     }
   end
 
@@ -21,7 +21,7 @@ Vagrant.configure('2') do |config|
   config.vm.network 'private_network', ip: '10.0.0.50'
 
   # basebox
-  config.vm.box = 'ffuenf/debian-8.4.0-amd64'
+  config.vm.box = 'ffuenf/debian-8.6.0-amd64'
 
   # virtualbox options
   config.vm.provider 'virtualbox' do |v|
