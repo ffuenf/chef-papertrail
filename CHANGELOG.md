@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of chef-papertrail.
 
+## 1.0.2:
+
+* update certificate checksum
+
 ## 1.0.1:
 
 * integrate testsuites: test-kitchen, foodcritic, rubocop, travis-ci
