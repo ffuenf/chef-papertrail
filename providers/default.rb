@@ -25,7 +25,7 @@ action :add do
       action :create
       owner 'root'
       group 'root'
-      mode 0644
+      mode 0o644
       cookbook 'papertrail'
       source 'rsyslog.conf.erb'
       variables(

@@ -25,7 +25,7 @@ directory node['papertrail']['conf_dir'] do
   action :create
   owner 'root'
   group 'root'
-  mode 0755
+  mode 0o755
 end
 
 ruby_block 'set_LocalHostName' do
@@ -40,7 +40,7 @@ template '/etc/rsyslog.d/90-papertrail.conf' do
   action :create
   owner 'root'
   group 'root'
-  mode 0644
+  mode 0o644
   cookbook 'papertrail'
   source 'papertrail.rsyslog.conf.erb'
   variables(
@@ -52,7 +52,7 @@ end
 
 remote_file "#{node['papertrail']['conf_dir']}/papertrail-bundle.pem" do
   source node['papertrail']['certificate_src']
-  mode 0644
+  mode 0o644
   checksum node['papertrail']['certificate_checksum']
   only_if { node['papertrail']['enable_tls'] }
 end
